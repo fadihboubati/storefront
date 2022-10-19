@@ -1,26 +1,55 @@
 import { connect } from 'react-redux';
 
-import Button from '@mui/material/Button';
-import ButtonGroup from '@mui/material/ButtonGroup';
-import Typography from '@mui/material/Typography';
+
 import { selectCategory } from '../../store/reducers/products'
+
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+
+
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+import DevicesOtherIcon from '@mui/icons-material/DevicesOther';
+import CheckroomIcon from '@mui/icons-material/Checkroom';
 
 function Categories(props) {
 
+
+    const [value, setValue] = React.useState(0);
+
+
+    const pickIcon = (categoryName) => {
+        const icon = {
+            "Elecronics": <DevicesOtherIcon />,
+            "Food": <FastfoodIcon />,
+            "Clothing": <CheckroomIcon />
+        }
+        return icon[categoryName];
+    }
+
     return (
         <div >
-            <Typography variant="h5">Browse our Categories</Typography>
-            <ButtonGroup variant="text" color="primary" aria-label="text primary button group">
-                {props.categories.map(cat =>
-                    <Button
-                        key={cat._id}
-                        color="primary"
-                        onClick={() => props.selectCategory(cat.name)}
-                    >
-                        {cat.displayName || cat.name}
-                    </Button>
-                )}
-            </ButtonGroup>
+            <Box sx={{ width: "100%" }}>
+                <BottomNavigation
+                    showLabels
+                    value={value}
+                    onChange={(event, newValue) => {
+                        setValue(newValue);
+                    }}
+                >
+
+                    {props.categories.map(cat =>
+
+                        <BottomNavigationAction
+                            key={cat._id}
+                            label={cat.displayName}
+                            icon={pickIcon(cat.displayName)}
+                            onClick={() => props.selectCategory(cat.name)}
+                        />
+                    )}
+                </BottomNavigation>
+            </Box>
         </div>
     );
 }
