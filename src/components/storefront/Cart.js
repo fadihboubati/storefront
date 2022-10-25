@@ -13,27 +13,31 @@ import { red } from '@mui/material/colors';
 
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
+import { connect } from 'react-redux';
+import { addToCart } from '../../store/reducers/cart';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import ShareIcon from '@mui/icons-material/Share';
 
-export default function Cart({ name, price }) {
+
+// function Cart({ name, price }) {
+function Cart(props) {
 
     return (
         <Card sx={{ maxWidth: 300 }} >
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        {name.charAt(0)}
+                        {props.product.name.charAt(0)}
                     </Avatar>
                 }
 
-                title={name}
+                title={props.product.name}
                 subheader="September 14, 2016"
             />
             <CardMedia
                 component="img"
                 height="194"
-                image={`https://source.unsplash.com/random?${name}`}
+                image={`https://source.unsplash.com/random?${props.product.name}`}
                 alt="Paella dish"
             />
             <CardContent>
@@ -44,13 +48,17 @@ export default function Cart({ name, price }) {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton aria-label="add to favorites">
+                <IconButton onClick={() => props.addToCart(props.product)} aria-label="add to favorites">
                     <AddShoppingCartIcon />
                 </IconButton>
                 <IconButton aria-label="share">
-                    {price}<AttachMoneyIcon />
+                    {props.product.price}<AttachMoneyIcon />
                 </IconButton>
             </CardActions>
         </Card>
     );
 }
+
+const mapDispatchToProps = { addToCart }
+
+export default connect(null, mapDispatchToProps)(Cart)
