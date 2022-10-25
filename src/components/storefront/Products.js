@@ -4,18 +4,49 @@ import Cart from './Cart';
 
 import { Grid, Box } from '@mui/material';
 
+
+import './storefront.scss'
 function Products(props) {
-    // min - height: 400px;
-    const styleCards = { "min-height": "400px" }
     const products = props.store.products.filter(product => product.category === props.store.activeCategory);
+    let containerHeight = { "min-height": "493px" }
+
+
+    // function styleCards() {
+    //     let style = { "min-height": "493px" }
+    //     let userAgent = navigator.userAgent;
+
+    //     if (userAgent.match(/chrome|chromium|crios/i) {
+    //         style = { "min-height": "412px" }
+    //         alert("chrome")
+
+    //     } else if (userAgent.match(/firefox|fxios/i)) {
+    //         style = { "min-height": "493px" }
+
+
+    //     } else if (userAgent.match(/safari/i)) {
+    //         style = { "min-height": "493px" }
+
+
+    //     } else if (userAgent.match(/opr\//i)) {
+    //         style = { "min-height": "493px" }
+
+
+    //     } else if (userAgent.match(/edg/i)) {
+    //         style = { "min-height": "493px" }
+    //         alert("Edge")
+
+
+    //     } else {
+    //         style = { "min-height": "493px" }
+    //     }
+
+    //     return style
+    // }
 
     return (
-        <div className='cards' style={styleCards}>
-
-
+        <div className='cards' style={containerHeight}>
             <Box p={5}>
                 <Grid container spacing={5}>
-
                     {products.map(product => {
                         return (
                             <Grid item key={product.id}>
@@ -24,7 +55,6 @@ function Products(props) {
                         )
                     })}
                 </Grid>
-
             </Box>
         </div>
     );
