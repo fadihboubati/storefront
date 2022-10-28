@@ -8,6 +8,15 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { connect } from 'react-redux';
 
+
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import { addToCart, RemoveFromCart } from '../../store/reducers/cart';
+import { IconButton } from '@mui/material';
+
 const TAX_RATE = 0.07;
 
 function ccyFormat(num) {
@@ -61,7 +70,19 @@ function CartShop(props) {
                         {rows.map((row) => (
                             <TableRow key={row.desc}>
                                 <TableCell>{row.desc}</TableCell>
-                                <TableCell align="right">{row.qty}</TableCell>
+                                <TableCell align="right">
+                                    {/* <IconButton onClick={() => props.removeFromCart(rows.id)}>
+                                        <RemoveCircleIcon fontSize='small' color="primary" />
+                                    </IconButton> */}
+
+                                    <span style={{ fontSize: "small" }}>
+                                        {" "}{row.qty}{" "}
+                                    </span>
+
+                                    {/* <IconButton onClick={() => props.addToCart(row)}>
+                                        <AddCircleIcon fontSize='small' color="primary" />
+                                    </IconButton> */}
+                                </TableCell>
                                 <TableCell align="right">{row.unit}</TableCell>
                                 <TableCell align="right">{ccyFormat(row.price)}</TableCell>
                             </TableRow>
@@ -92,5 +113,10 @@ function CartShop(props) {
 const mapStateToProps = state => ({
     cart: state.cartReducer.cart
 })
+
+// const mapDispatchToProps = dispath => ({
+//     addToCart: (productInfo, qty) => dispath(addToCart(productInfo, qty)),
+//     removeFromCart: (id) => dispath(RemoveFromCart(id))
+// })
 
 export default connect(mapStateToProps, null)(CartShop)

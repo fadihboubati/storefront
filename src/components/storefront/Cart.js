@@ -48,7 +48,11 @@ function Cart(props) {
                 </Typography>
             </CardContent>
             <CardActions disableSpacing>
-                <IconButton onClick={() => props.addToCart(props.product)} aria-label="add to favorites">
+                <IconButton onClick={() => {
+
+                    props.addToCart(props.product)
+                }
+                } aria-label="add to favorites">
                     <AddShoppingCartIcon />
                 </IconButton>
                 <IconButton aria-label="share">
