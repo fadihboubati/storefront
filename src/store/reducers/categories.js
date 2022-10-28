@@ -1,23 +1,16 @@
 // "use strict";
 
 // Types
-const ACTIVE_CATEGORY = "ACTIVE_CATEGORY";
-
-// Action Creators
-export function selectCategory(categoryName) {
-    return {
-        type: ACTIVE_CATEGORY,
-        payload: { categoryName }
-
-    };
-};
+import { ACTIVE_CATEGORY, INIT_CATEGORIES } from "../actions/types";
 
 // InitialState
 let initialState = {
-    categories: [
-        { _id: 1, name: 'electronics', displayName: 'Elecronics' },
-        { _id: 2, name: 'food', displayName: 'Food' },
-        { _id: 3, name: 'clothing', displayName: 'Clothing' },
+    categoryList: [
+        // { _id: 1, name: 'electronics', displayName: 'Elecronics' },
+        // { _id: 2, name: 'jewelery', displayName: 'Jewelery' },
+        // { _id: 3, name: "men's clothing", displayName: "men's clothing" },
+        // { _id: 4, name: "women's clothing", displayName: "women's clothing" },
+        // { _id: 3, name: 'clothing', displayName: 'Clothing' },
     ],
     activeCategory: ''
 };
@@ -28,6 +21,9 @@ export default (state = initialState, action) => {
     switch (type) {
         case ACTIVE_CATEGORY:
             return { ...state, activeCategory: payload.categoryName }
+
+        case INIT_CATEGORIES:
+            return { ...state, categoryList: payload.categoryList }
 
         default:
             return state

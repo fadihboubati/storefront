@@ -1,6 +1,7 @@
 import products from "./products.json";
 import categories from "./categories.json";
 
+
 function getProducts() {
     return (
         Promise.resolve(products)

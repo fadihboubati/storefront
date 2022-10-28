@@ -1,25 +1,8 @@
 // "use strict";
 
 // Types
-const ADD_TO_CART = "ADD_TO_CART";
-const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/types"
 
-// Action Creators
-export function addToCart(productInfo, qty = 1) {
-    return {
-        type: ADD_TO_CART,
-        payload: { productInfo, qty }
-
-    };
-};
-
-export function RemoveFromCart(id) {
-    return {
-        type: REMOVE_FROM_CART,
-        payload: { id }
-
-    };
-};
 
 // InitialState
 let initialState = {

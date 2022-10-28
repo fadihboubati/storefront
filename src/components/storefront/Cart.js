@@ -14,7 +14,7 @@ import { red } from '@mui/material/colors';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { connect } from 'react-redux';
-import { addToCart } from '../../store/reducers/cart';
+import { addProductToCart } from '../../store/actions/actions';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import ShareIcon from '@mui/icons-material/Share';
 
@@ -50,7 +50,7 @@ function Cart(props) {
             <CardActions disableSpacing>
                 <IconButton onClick={() => {
 
-                    props.addToCart(props.product)
+                    props.addProductToCart(props.product)
                 }
                 } aria-label="add to favorites">
                     <AddShoppingCartIcon />
@@ -63,6 +63,6 @@ function Cart(props) {
     );
 }
 
-const mapDispatchToProps = { addToCart }
+const mapDispatchToProps = { addProductToCart }
 
 export default connect(null, mapDispatchToProps)(Cart)
