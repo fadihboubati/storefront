@@ -7,39 +7,28 @@ import { Grid, Box } from '@mui/material';
 
 import './storefront.scss'
 function Products(props) {
-    const products = props.store.products.filter(product => product.category === props.store.activeCategory);
-    let containerHeight = { "min-height": "493px" }
+    const products = props.products.filter(product => product.category === props.activeCategory);
+    let containerHeight = { "minHeight": "493px" }
 
 
     // function styleCards() {
     //     let style = { "min-height": "493px" }
     //     let userAgent = navigator.userAgent;
-
     //     if (userAgent.match(/chrome|chromium|crios/i) {
     //         style = { "min-height": "412px" }
     //         alert("chrome")
-
     //     } else if (userAgent.match(/firefox|fxios/i)) {
     //         style = { "min-height": "493px" }
-
-
     //     } else if (userAgent.match(/safari/i)) {
     //         style = { "min-height": "493px" }
-
-
     //     } else if (userAgent.match(/opr\//i)) {
     //         style = { "min-height": "493px" }
-
-
     //     } else if (userAgent.match(/edg/i)) {
     //         style = { "min-height": "493px" }
     //         alert("Edge")
-
-
     //     } else {
     //         style = { "min-height": "493px" }
     //     }
-
     //     return style
     // }
 
@@ -50,7 +39,8 @@ function Products(props) {
                     {products.map(product => {
                         return (
                             <Grid item key={product.id}>
-                                <Cart {...product} />
+                                {/* <Cart {...product} /> */}
+                                <Cart product={product} />
                             </Grid>
                         )
                     })}
@@ -62,7 +52,8 @@ function Products(props) {
 
 
 const mapStateToProps = (state) => ({
-    store: state.productsRreducer
+    products: state.productsRreducer,
+    activeCategory: state.categoriesReducer.activeCategory
 });
 
 export default connect(mapStateToProps)(Products)

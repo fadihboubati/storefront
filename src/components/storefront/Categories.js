@@ -1,7 +1,7 @@
 import { connect } from 'react-redux';
 
 
-import { selectCategory } from '../../store/reducers/products'
+import { selectCategory } from '../../store/reducers/categories';
 
 import * as React from 'react';
 import Box from '@mui/material/Box';
@@ -45,7 +45,7 @@ function Categories(props) {
                             key={cat._id}
                             label={cat.displayName}
                             icon={pickIcon(cat.displayName)}
-                            onClick={() => props.selectCategory(cat.name)}
+                            onClick={() => props.selectedCategory(cat.name)}
                         />
                     )}
                 </BottomNavigation>
@@ -55,10 +55,15 @@ function Categories(props) {
 }
 
 const mapStateToProps = state => ({
-    categories: state.productsRreducer.categories,
+    categories: state.categoriesReducer.categories,
 });
 
 
-const mapDispatchToProps = { selectCategory }
+// const mapDispatchToProps = { selectCategory }
+// const mapDispatchToProps = { selectedCategory:selectCategory }
+
+const mapDispatchToProps = (dispatch) => ({
+    selectedCategory: (categoryName) => dispatch(selectCategory(categoryName))
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(Categories);

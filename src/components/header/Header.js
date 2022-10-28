@@ -15,8 +15,10 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-
+import ShoppingBagIcon from '@mui/icons-material/ShoppingBag';
+import { Link, NavLink } from 'react-router-dom'
 import MoreIcon from '@mui/icons-material/MoreVert';
+import { connect } from 'react-redux';
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -58,7 +60,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function Header() {
+function Header(props) {
     const [anchorEl, setAnchorEl] = React.useState(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
@@ -130,7 +132,9 @@ export default function Header() {
                 </IconButton>
                 <p>Messages</p>
             </MenuItem>
-            <MenuItem>
+            <MenuItem
+                component={Link} to={'/cart'}
+            >
                 <IconButton
                     size="large"
                     aria-label="show 17 new notifications"
@@ -191,9 +195,11 @@ export default function Header() {
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                            <Badge badgeContent={4} color="error">
+                            <Badge badgeContent={0} color="error">
                                 {/* <MailIcon /> */}
-                                <NotificationsIcon />
+                                <NavLink to={"/"} state={{ textDecoration: 'none' }} >
+                                    <ShoppingBagIcon />
+                                </NavLink>
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -201,8 +207,10 @@ export default function Header() {
                             aria-label="show 17 new notifications"
                             color="inherit"
                         >
-                            <Badge badgeContent={17} color="error">
-                                <ShoppingCartIcon />
+                            <Badge badgeContent={props.productsNumber} color="error">
+                                <NavLink to={"/cart"} state={{ textDecoration: 'none' }} >
+                                    <ShoppingCartIcon />
+                                </NavLink>
                             </Badge>
                         </IconButton>
                         <IconButton
@@ -236,3 +244,11 @@ export default function Header() {
         </Box>
     );
 }
+
+
+
+const mapStateToProps = state => ({
+    productsNumber: state.cartReducer.total
+})
+
+export default connect(mapStateToProps, null)(Header)
