@@ -5,9 +5,17 @@ import productsRreducer from "./reducers/products.js";
 import categoriesReducer from "./reducers/categories";
 import cartReducer from './reducers/cart.js';
 
-import thunk from './middlewares/thunk.js';
-// import thunk from 'redux-thunk'
+////////////////////////////////////////////////////////////////////////////
+// Two way to apply the thunk:
+// ----------------------------
+// hardcode
+// import thunk from './middlewares/thunk.js';
 
+//OR using a package called redux-thunk
+
+// npm i redux-thunk
+import thunk from 'redux-thunk' // npm i redux-thunk 
+////////////////////////////////////////////////////////////////////////////
 
 
 

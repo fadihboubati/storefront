@@ -1,17 +1,13 @@
 "use strict";
 import axios from "axios";
 
-import { ACTIVE_CATEGORY, ADD_TO_CART, REMOVE_FROM_CART, GET_DATA, INIT_CATEGORIES } from "./types"
-const REACT_APP_API = process.env.REACT_APP_BASE_URL;
+import { ACTIVE_CATEGORY, ADD_TO_CART, REMOVE_FROM_CART, GET_DATA, INIT_CATEGORIES, LOAD_PRODUCTS } from "./types";
+const REACT_APP_API = process.env.REACT_APP_BASE_URL; //"https://fakestoreapi.com"
 
 // Categroies Actions
 export const getCategories = () => async dispatch => {
-    console.log("---------------- get remote ------------------");
-    console.log(REACT_APP_API);
-    let REACT_APP_API2 = "https://fakestoreapi.com"
-    const url = REACT_APP_API2 + "/products/categories"
+    const url = REACT_APP_API + "/products/categories"
     let results = await axios.get(url);
-    console.log({ results });
     dispatch(setCategories(results.data));
 };
 
@@ -30,18 +26,19 @@ export function selectCategory(categoryName) {
     };
 };
 
-// Categroies Actions
-export function setProducts(products) {
-    return {
-        type: GET_DATA,
-        payload: { data: products }
-    }
+// Products Actions
+export const getProducts = (activeCategory) => async (dispatch, state) => {
+    const url = REACT_APP_API + "/products"
+    let result = await axios.get(url);
+    const featuredProducts = result.data.filter(product => product.category === activeCategory);
+    dispatch(setProducts(featuredProducts));
 }
 
-export const getProducts = () => async (dispatch, state) => {
-    const url = REACT_APP_API + "/products"
-    let result = await axios.get(REACT_APP_API);
-    dispatch(setProducts(result.data));
+export function setProducts(products) {
+    return {
+        type: LOAD_PRODUCTS,
+        payload: { products }
+    }
 }
 
 export function addProductToCart(productInfo, qty = 1) {
@@ -59,3 +56,7 @@ export function removeProductFromCart(id) {
 
     };
 };
+
+
+// Store Actions
+// ...
