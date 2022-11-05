@@ -15,7 +15,6 @@ export default (state = initialState, action) => {
     const { type, payload } = action;
     switch (type) {
         case ADD_TO_CART:
-            // console.log({ payload });
             const newState = {};
 
             // Cart is Empty
@@ -30,11 +29,10 @@ export default (state = initialState, action) => {
 
                 // Cart is not Empty
             } else {
-
                 // check and update the cart
                 let exist = false;
                 for (const product of state.cart) {
-                    if (product.name === payload.productInfo.name) {
+                    if (product.title === payload.productInfo.title) {
                         exist = true;
                         break;
                     }
@@ -45,7 +43,7 @@ export default (state = initialState, action) => {
                     newState.cart = state.cart.map(product => {
 
                         // the product is already in the cart
-                        if (product.name === payload.productInfo.name) {
+                        if (product.title === payload.productInfo.title) {
 
                             // update this product
                             let updatedProduct = {
@@ -80,7 +78,6 @@ export default (state = initialState, action) => {
         case REMOVE_FROM_CART:
             // product.id === payload.id ? { ...product, inStock: product.inStock + 1 } : product
             state.cart = state.cart.flatMap(product => {
-                console.log(product);
                 if (product.id === payload.id) {
                     if (product.qty == 1) {
                         return [];
@@ -89,7 +86,6 @@ export default (state = initialState, action) => {
                     }
                 }
             })
-            console.log(state.cart);
             state.total--
             return state
 

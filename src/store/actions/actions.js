@@ -1,7 +1,7 @@
-"use strict";
+// "use strict"; // "use strict" is not necessary in this module
 import axios from "axios";
 
-import { ACTIVE_CATEGORY, ADD_TO_CART, REMOVE_FROM_CART, GET_DATA, INIT_CATEGORIES, LOAD_PRODUCTS } from "./types";
+import { ACTIVE_CATEGORY, ADD_TO_CART, REMOVE_FROM_CART, INIT_CATEGORIES, LOAD_PRODUCTS } from "./types";
 const REACT_APP_API = process.env.REACT_APP_BASE_URL; //"https://fakestoreapi.com"
 
 // Categroies Actions
@@ -41,7 +41,9 @@ export function setProducts(products) {
     }
 }
 
-export function addProductToCart(productInfo, qty = 1) {
+
+// Store Actions
+export function add(productInfo, qty = 1) {
     return {
         type: ADD_TO_CART,
         payload: { productInfo, qty }
@@ -49,7 +51,23 @@ export function addProductToCart(productInfo, qty = 1) {
     };
 };
 
-export function removeProductFromCart(id) {
+export const addProductToCart = (product, qty = 1) => async dispatch => {
+
+    // // Update the in Stock for this product, decrement the amount
+    // // ---------------------------------------------------------------
+    // let updatedProduct = { inStock: product.inStock - qty };
+    // let url = `${process.env.REACT_APP_API}/products/${product._id}`;
+    // let results = await axios.put(url).send(updatedProduct);
+    // let record = results.body;
+    // dispatch(addProductToCart(record));
+
+    dispatch(add(product, qty));
+    // // so, we've updated the server, but haven't re-fetched the list
+    // // is our display in sync with the server?
+};
+
+
+export function remove(id) {
     return {
         type: REMOVE_FROM_CART,
         payload: { id }
@@ -57,6 +75,17 @@ export function removeProductFromCart(id) {
     };
 };
 
+export const removeProductFromCart = (id) => async dispatch => {
 
-// Store Actions
-// ...
+    // // Update the in Stock for this product, encrement the amount
+    // // ---------------------------------------------------------------
+    // let updatedProduct = { inStock: product.inStock - 1 };
+    // let url = `${process.env.REACT_APP_API}/products/${product._id}`;
+    // let results = await axios.put(url).send(updatedProduct);
+    // let record = results.body;
+    // dispatch(addProductToCart(record));
+
+    dispatch(remove(id));
+    // // so, we've updated the server, but haven't re-fetched the list
+    // // is our display in sync with the server?
+};

@@ -40,7 +40,7 @@ function CartShop(props) {
     let containerHeight = { "minHeight": "549px" }
 
     const rows = props.cart.map(product => {
-        return createRow(product.name, product.qty, product.price)
+        return createRow(product.title, product.qty, product.price)
     })
 
     const invoiceSubtotal = subtotal(rows);
