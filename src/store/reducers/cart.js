@@ -1,25 +1,8 @@
 // "use strict";
 
 // Types
-const ADD_TO_CART = "ADD_TO_CART";
-const REMOVE_FROM_CART = "REMOVE_FROM_CART";
+import { ADD_TO_CART, REMOVE_FROM_CART } from "../actions/types"
 
-// Action Creators
-export function addToCart(productInfo, qty = 1) {
-    return {
-        type: ADD_TO_CART,
-        payload: { productInfo, qty }
-
-    };
-};
-
-export function RemoveFromCart(id) {
-    return {
-        type: REMOVE_FROM_CART,
-        payload: { id }
-
-    };
-};
 
 // InitialState
 let initialState = {
@@ -32,7 +15,6 @@ export default (state = initialState, action) => {
     const { type, payload } = action;
     switch (type) {
         case ADD_TO_CART:
-            // console.log({ payload });
             const newState = {};
 
             // Cart is Empty
@@ -47,11 +29,10 @@ export default (state = initialState, action) => {
 
                 // Cart is not Empty
             } else {
-
                 // check and update the cart
                 let exist = false;
                 for (const product of state.cart) {
-                    if (product.name === payload.productInfo.name) {
+                    if (product.title === payload.productInfo.title) {
                         exist = true;
                         break;
                     }
@@ -62,7 +43,7 @@ export default (state = initialState, action) => {
                     newState.cart = state.cart.map(product => {
 
                         // the product is already in the cart
-                        if (product.name === payload.productInfo.name) {
+                        if (product.title === payload.productInfo.title) {
 
                             // update this product
                             let updatedProduct = {
@@ -97,7 +78,6 @@ export default (state = initialState, action) => {
         case REMOVE_FROM_CART:
             // product.id === payload.id ? { ...product, inStock: product.inStock + 1 } : product
             state.cart = state.cart.flatMap(product => {
-                console.log(product);
                 if (product.id === payload.id) {
                     if (product.qty == 1) {
                         return [];
@@ -106,7 +86,6 @@ export default (state = initialState, action) => {
                     }
                 }
             })
-            console.log(state.cart);
             state.total--
             return state
 

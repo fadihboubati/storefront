@@ -14,7 +14,7 @@ import { red } from '@mui/material/colors';
 import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
 import AttachMoneyIcon from '@mui/icons-material/AttachMoney';
 import { connect } from 'react-redux';
-import { addToCart } from '../../store/reducers/cart';
+import { addProductToCart } from '../../store/actions/actions';
 // import FavoriteIcon from '@mui/icons-material/Favorite';
 // import ShareIcon from '@mui/icons-material/Share';
 
@@ -22,22 +22,29 @@ import { addToCart } from '../../store/reducers/cart';
 // function Cart({ name, price }) {
 function Cart(props) {
 
+    function getRandomDate() {
+        const maxDate = Date.now();
+        const timestamp = Math.floor(Math.random() * maxDate);
+        return new Date(timestamp);
+    }
+
     return (
         <Card sx={{ maxWidth: 300 }} >
             <CardHeader
                 avatar={
                     <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-                        {props.product.name.charAt(0)}
+                        {props.product.title.charAt(0)}
                     </Avatar>
                 }
 
-                title={props.product.name}
+                title={props.product.title}
                 subheader="September 14, 2016"
             />
             <CardMedia
                 component="img"
                 height="194"
-                image={`https://source.unsplash.com/random?${props.product.name}`}
+                image={props.product.image}
+                // image={`https://source.unsplash.com/random?${props.product.name}`}
                 alt="Paella dish"
             />
             <CardContent>
@@ -50,7 +57,7 @@ function Cart(props) {
             <CardActions disableSpacing>
                 <IconButton onClick={() => {
 
-                    props.addToCart(props.product)
+                    props.addProductToCart(props.product)
                 }
                 } aria-label="add to favorites">
                     <AddShoppingCartIcon />
@@ -63,6 +70,6 @@ function Cart(props) {
     );
 }
 
-const mapDispatchToProps = { addToCart }
+const mapDispatchToProps = { addProductToCart }
 
 export default connect(null, mapDispatchToProps)(Cart)
